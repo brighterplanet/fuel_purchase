@@ -9,7 +9,8 @@ begin
     gem.description = %Q{A software model in Ruby for the greenhouse gas emissions of a fuel purchase}
     gem.email = "andy@rossmeissl.net"
     gem.homepage = "http://github.com/brighterplanet/fuel_purchase"
-    gem.authors = ["Andy Rossmeissl"]
+    gem.authors = ["Andy Rossmeissl", "Ian Hough", "Seamus Abshere", "Matt Kling"]
+    gem.add_development_dependency "leap"
     gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
