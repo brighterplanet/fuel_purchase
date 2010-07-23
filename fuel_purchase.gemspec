@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{fuel_purchase}
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Andy Rossmeissl", "Seamus Abshere", "Ian Hough", "Matt Kling", "Derek Kastner"]
@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
      "lib/fuel_purchase/characterization.rb",
      "lib/fuel_purchase/data.rb",
      "lib/fuel_purchase/summarization.rb",
+     "lib/test_support/db/schema.rb",
      "lib/test_support/fuel_purchase_record.rb"
   ]
   s.homepage = %q{http://github.com/brighterplanet/fuel_purchase}
@@ -35,6 +36,7 @@ Gem::Specification.new do |s|
     "features/support/env.rb",
      "features/fuel_purchase_committees.feature",
      "features/fuel_purchase_emissions.feature",
+     "lib/test_support/db/schema.rb",
      "lib/test_support/fuel_purchase_record.rb"
   ]
 
