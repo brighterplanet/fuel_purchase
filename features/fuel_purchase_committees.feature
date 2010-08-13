@@ -33,7 +33,7 @@ Feature: Fuel Purchase Committee Calculations
       | Industrial Coking Coal | 0.1302 |
       | Kerosene               | 0.7059 |
 
-  Scenario Outline: Volume comittee
+  Scenario Outline: Volume comittee from cost and price
     Given a fuel purchase emitter
     And a characteristic "cost" of "<cost>"
     And a characteristic "price" of "<price>"
@@ -42,6 +42,24 @@ Feature: Fuel Purchase Committee Calculations
     Examples:
       | cost | price | volume |
       |  3.0 |   4.0 |   12.0 |
+
+  Scenario Outline: Volume comittee from fuel type
+    Given a fuel purchase emitter
+    And a characteristic "fuel_type.name" of "<fuel>"
+    When the "volume" committee is calculated
+    Then the volume committee should be close to <volume>, +/-1
+    Examples:
+      | fuel                    | volume   |
+      | Residential Natural Gas |  6221.98 | 
+      | Commercial Natural Gas  | 49237.8  |
+
+  Scenario Outline: Volume comittee from default
+    Given a fuel purchase emitter
+    When the "volume" committee is calculated
+    Then the volume committee should be close to <volume>, +/-1
+    Examples:
+      | volume |
+      | 100    |
 
   Scenario Outline: Emission factor committee from fuel type
     Given a fuel purchase emitter
