@@ -42,3 +42,18 @@ Feature: Fuel Purchase Committee Calculations
     Examples:
       | cost | price | volume |
       |  3.0 |   4.0 |   12.0 |
+
+  Scenario Outline: Emission factor committee from fuel type
+    Given a fuel purchase emitter
+    And a characteristic "fuel_type.name" of "<fuel_type>"
+    When the "emission_factor" committee is calculated
+    Then the conclusion of the committee should be "<factor>"
+    Examples:
+      | fuel_type              | factor |
+      | Industrial Coking Coal | 2.72   |
+      | Kerosene               | 2.681  |
+
+  Scenario: Emission factor committee from default
+    Given a fuel purchase emitter
+    When the "emission_factor" committee is calculated
+    Then the conclusion of the committee should be "1.0"
