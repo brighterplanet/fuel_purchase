@@ -29,9 +29,11 @@ Feature: Fuel Purchase Committee Calculations
     When the "price" committee is calculated
     Then the conclusion of the committee should be "<price>"
     Examples:
-      | fuel_type              | price  |
-      | Industrial Coking Coal | 0.1302 |
-      | Kerosene               | 0.7059 |
+      | fuel_type                     | price  |
+      | Industrial Coking Coal        | 0.1302 |
+      | Residential Natural Gas       | 0.4227 |
+      | Kerosene                      | 0.7059 |
+      | Conventional Motor Gasoline   | 0.4922 |
 
   Scenario Outline: Volume comittee from cost and price
     Given a fuel purchase emitter
@@ -51,7 +53,6 @@ Feature: Fuel Purchase Committee Calculations
     Examples:
       | fuel                    | volume   |
       | Residential Natural Gas |  6221.98 | 
-      | Commercial Natural Gas  | 49237.8  |
 
   Scenario Outline: Volume comittee from default
     Given a fuel purchase emitter
@@ -67,9 +68,11 @@ Feature: Fuel Purchase Committee Calculations
     When the "emission_factor" committee is calculated
     Then the conclusion of the committee should be "<factor>"
     Examples:
-      | fuel_type              | factor |
-      | Industrial Coking Coal | 2.72   |
-      | Kerosene               | 2.681  |
+      | fuel_type                   | factor |
+      | Industrial Coking Coal      | 2.720  |
+      | Residential Natural Gas     | 1.923  |
+      | Kerosene                    | 2.681  |
+      | Conventional Motor Gasoline | 2.358  |
 
   Scenario: Emission factor committee from default
     Given a fuel purchase emitter
