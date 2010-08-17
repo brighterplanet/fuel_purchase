@@ -41,7 +41,8 @@ Feature: Fuel Purchase Committee Calculations
     Then the volume committee should be close to <volume>, +/-1
     Examples:
       | cost | price | volume |
-      |  3.0 |   4.0 |   12.0 |
+      | 12.0 |   3.0 |    4.0 |
+      |  0.0 |   0.0 |    0.0 |
 
   Scenario Outline: Volume comittee from fuel type
     Given a fuel purchase emitter

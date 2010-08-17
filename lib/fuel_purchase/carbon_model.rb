@@ -30,7 +30,7 @@ module BrighterPlanet
           committee :volume do
             quorum 'from cost and price', :needs => [:cost, :price] do |characteristics|
               #       dollars          dollars / variable unit          FIXME TODO should we make prices $ / kJ to avoid unit mismatches?
-              characteristics[:cost] * characteristics[:price]
+              characteristics[:cost] / characteristics[:price]
             end
             
             quorum 'from fuel type', :needs => :fuel_type do |characteristics|
