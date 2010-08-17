@@ -14,6 +14,6 @@ Feature: Fuel Purchase Emissions Calculations
       | Conventional Motor Gasoline | 100.0  |   479.1  |
 
   Scenario: Default fuel purchase emission
-    Given a fuel purchase emission
+    Given a fuel purchase has "emission" of ""
     When emissions are calculated
     Then the emission value should be within 0.1 kgs of 100

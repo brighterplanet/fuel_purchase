@@ -44,7 +44,7 @@ Feature: Fuel Purchase Committee Calculations
     Examples:
       | cost | price | volume |
       | 12.0 |   3.0 |    4.0 |
-      |  0.0 |   0.0 |    0.0 |
+      |  0.0 |   1.0 |    0.0 |
 
   Scenario Outline: Volume comittee from fuel type
     Given a fuel purchase emitter
