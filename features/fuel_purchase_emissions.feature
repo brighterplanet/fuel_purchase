@@ -12,3 +12,8 @@ Feature: Fuel Purchase Emissions Calculations
       | Residential Natural Gas     | 100.0  |   454.9  |
       | Kerosene                    | 100.0  |   379.8  |
       | Conventional Motor Gasoline | 100.0  |   479.1  |
+
+  Scenario: Default fuel purchase emission
+    Given a fuel purchase emission
+    When emissions are calculated
+    Then the emission value should be within 0.1 kgs of 100
