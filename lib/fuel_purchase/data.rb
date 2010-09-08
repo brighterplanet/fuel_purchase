@@ -23,9 +23,7 @@ module BrighterPlanet
             FuelPrice.run_data_miner!
           end
           
-          process "Pull dependencies" do
-            run_data_miner_on_belongs_to_associations
-          end
+          process :run_data_miner_on_belongs_to_associations
         end
       end
     end
