@@ -40,7 +40,8 @@ Feature: Fuel Purchase Committee Calculations
     And a characteristic "cost" of "<cost>"
     And a characteristic "price" of "<price>"
     When the "volume" committee is calculated
-    Then the volume committee should be close to <volume>, +/-1
+    Then the committee should have used quorum "from cost and price"
+    And the conclusion of the committee should be "<volume>"
     Examples:
       | cost | price | volume |
       | 12.0 |   3.0 |    4.0 |
@@ -50,7 +51,8 @@ Feature: Fuel Purchase Committee Calculations
     Given a fuel purchase emitter
     And a characteristic "fuel_type.name" of "<fuel>"
     When the "volume" committee is calculated
-    Then the volume committee should be close to <volume>, +/-1
+    Then the committee should have used quorum "from fuel type"
+    And the conclusion of the committee should be "<volume>"
     Examples:
       | fuel                    | volume   |
       | Residential Natural Gas |  6221.98 | 
@@ -58,7 +60,7 @@ Feature: Fuel Purchase Committee Calculations
   Scenario Outline: Volume comittee from default
     Given a fuel purchase emitter
     When the "volume" committee is calculated
-    Then the volume committee should be close to <volume>, +/-1
+    And the conclusion of the committee should be "<volume>"
     Examples:
       | volume |
       | 100    |
@@ -67,7 +69,8 @@ Feature: Fuel Purchase Committee Calculations
     Given a fuel purchase emitter
     And a characteristic "fuel_type.name" of "<fuel_type>"
     When the "emission_factor" committee is calculated
-    Then the conclusion of the committee should be "<factor>"
+    Then the committee should have used quorum "from fuel type"
+    And the conclusion of the committee should be "<factor>"
     Examples:
       | fuel_type                   | factor |
       | Industrial Coking Coal      | 2.720  |
@@ -78,4 +81,5 @@ Feature: Fuel Purchase Committee Calculations
   Scenario: Emission factor committee from default
     Given a fuel purchase emitter
     When the "emission_factor" committee is calculated
-    Then the conclusion of the committee should be "1.0"
+    Then the committee should have used quorum "default"
+    And the conclusion of the committee should be "1.0"

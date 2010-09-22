@@ -1,10 +1,7 @@
-require 'characterizable'
-
 module BrighterPlanet
   module FuelPurchase
     module Characterization
       def self.included(base)
-        base.send :include, Characterizable
         base.characterize do
           has :fuel_type
           has :volume

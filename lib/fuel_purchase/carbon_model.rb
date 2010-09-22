@@ -1,10 +1,7 @@
-require 'leap'
-
 module BrighterPlanet
   module FuelPurchase
     module CarbonModel
       def self.included(base)
-        base.extend ::Leap::Subject
         base.decide :emission, :with => :characteristics do
           committee :emission do
             quorum 'from volume and emission factor', :needs => [:volume, :emission_factor] do |characteristics|

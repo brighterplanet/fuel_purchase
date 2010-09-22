@@ -5,7 +5,7 @@ Feature: Fuel Purchase Emissions Calculations
     Given a fuel purchase has "fuel_type.name" of "<fuel_type>"
     And it has "cost" of "<cost>"
     When emissions are calculated
-    Then the emission value should be within 0.1 kgs of <emission>
+    Then the emission value should be within "0.1" kgs of "<emission>"
     Examples:
       | fuel_type                   | cost   | emission |
       | Industrial Coking Coal      | 100.0  |  2089.1  |
@@ -16,4 +16,4 @@ Feature: Fuel Purchase Emissions Calculations
   Scenario: Default fuel purchase emission
     Given a fuel purchase has "emission" of ""
     When emissions are calculated
-    Then the emission value should be within 0.1 kgs of 100
+    Then the emission value should be within "0.1" kgs of "100"
