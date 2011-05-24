@@ -24,7 +24,7 @@ module BrighterPlanet
             end
             
             quorum 'default' do
-              ::FuelType.fallback.emission_factor
+              FuelType.fallback.emission_factor
             end
           end
           
