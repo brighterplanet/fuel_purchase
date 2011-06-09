@@ -11,7 +11,7 @@ Feature: Fuel Purchase Committee Calculations
       | 48915 |    MI |
       | 20191 |    VA |
 
-  Scenario Outline: Petroleum Administration for Defense District comittee from state
+  Scenario Outline: Petroleum Administration for Defense District committee from state
     Given a fuel purchase emitter
     And a characteristic "zip_code.name" of "<zip>"
     When the "state" committee is calculated
