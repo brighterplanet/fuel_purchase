@@ -4,8 +4,8 @@ module BrighterPlanet
       def self.included(base)
         base.characterize do
           has :fuel_type
-          has :volume
-          has :cost
+          has :volume#, :measures => :volume (currently cubic feet or fixme??)
+          has :cost, :measures => Measurement::Cost
           has :price
           has :emission_factor
           has :zip_code
