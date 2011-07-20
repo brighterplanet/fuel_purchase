@@ -2,7 +2,7 @@ module BrighterPlanet
   module FuelPurchase
     module Data
       def self.included(base)
-        base.create_table do
+        base.force_schema do
           string 'fuel_type_id'
           float  'volume'
           string 'volume_units'
