@@ -4,10 +4,10 @@
 
 module BrighterPlanet
   module FuelPurchase
-    module CarbonModel
+    module ImpactModel
       def self.included(base)
-        base.decide :emission, :with => :characteristics do
-          committee :emission do
+        base.decide :impact, :with => :characteristics do
+          committee :carbon do
             quorum 'from volume and emission factor', :needs => [:volume, :emission_factor] do |characteristics|
               #     variable units                variable units          FIXME TODO should we make volumes energy contents to avoid unit mismatches?
               characteristics[:volume] * characteristics[:emission_factor]
@@ -18,7 +18,7 @@ module BrighterPlanet
             end
           end
           
-          committee :emission_factor do # FIXME TODO add date-based lookup once we have timeseries of emission factors
+          committee :carbon_factor do # FIXME TODO add date-based lookup once we have timeseries of emission factors
             quorum 'from fuel type', :needs => :fuel_type do |characteristics|
               characteristics[:fuel_type].emission_factor
             end

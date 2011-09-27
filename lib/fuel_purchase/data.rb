@@ -2,19 +2,17 @@ module BrighterPlanet
   module FuelPurchase
     module Data
       def self.included(base)
-        base.force_schema do
-          string 'fuel_type_id'
-          float  'volume'
-          string 'volume_units'
-          float  'cost'
-          string 'cost_units'
-          float  'price'
-          string 'price_units'
-          string 'zip_code_id'
-          string 'state_id'
-          string 'petroleum_administration_for_defense_district_id'
-          date   'date'
-        end
+        base.col :fuel_type_id
+        base.col :volume, :type => :float
+        base.col :volume_units
+        base.col :cost, :type => :float
+        base.col :cost_units
+        base.col :price, :type => :float
+        base.col :price_units
+        base.col :zip_code_id
+        base.col :state_id
+        base.col :petroleum_administration_for_defense_district_id
+        base.col :date, :type => :date
 
         base.data_miner do
           process "Pull orphans" do
