@@ -18,7 +18,7 @@ module BrighterPlanet
             end
           end
           
-          committee :carbon_factor do # FIXME TODO add date-based lookup once we have timeseries of emission factors
+          committee :emission_factor do # FIXME TODO add date-based lookup once we have timeseries of emission factors
             quorum 'from fuel type', :needs => :fuel_type do |characteristics|
               characteristics[:fuel_type].emission_factor
             end
