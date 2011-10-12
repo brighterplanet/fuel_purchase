@@ -2,9 +2,8 @@ Feature: Fuel Purchase Committee Calculations
   The fuel purchase model should generate correct committee calculations
 
   Scenario Outline: State comittee
-    Given a fuel purchase emitter
-    And a characteristic "zip_code.name" of "<zip>"
-    When the "state" committee is calculated
+    Given a characteristic "zip_code.name" of "<zip>"
+    When the "state" committee reports
     Then the conclusion of the committee should have "postal_abbreviation" of "<state>"
     Examples:
       |  zip  | state |
@@ -12,10 +11,9 @@ Feature: Fuel Purchase Committee Calculations
       | 20191 |    VA |
 
   Scenario Outline: Petroleum Administration for Defense District committee from state
-    Given a fuel purchase emitter
-    And a characteristic "zip_code.name" of "<zip>"
-    When the "state" committee is calculated
-    And the "petroleum_administration_for_defense_district" committee is calculated
+    Given a characteristic "zip_code.name" of "<zip>"
+    When the "state" committee reports
+    And the "petroleum_administration_for_defense_district" committee reports
     Then the conclusion of the committee should have "district_name" of "<district>"
     And the conclusion of the committee should have "subdistrict_name" of "<subdistrict>"
     Examples:
@@ -24,9 +22,8 @@ Feature: Fuel Purchase Committee Calculations
       | 20191 | East Coast | Lower Atlantic |
 
   Scenario Outline: Price committee from fuel type
-    Given a fuel purchase emitter
-    And a characteristic "fuel_type.name" of "<fuel_type>"
-    When the "price" committee is calculated
+    Given a characteristic "fuel_type.name" of "<fuel_type>"
+    When the "price" committee reports
     Then the conclusion of the committee should be "<price>"
     Examples:
       | fuel_type                     | price  |
@@ -36,10 +33,9 @@ Feature: Fuel Purchase Committee Calculations
       | Conventional Motor Gasoline   | 0.4922 |
 
   Scenario Outline: Volume comittee from cost and price
-    Given a fuel purchase emitter
-    And a characteristic "cost" of "<cost>"
+    Given a characteristic "cost" of "<cost>"
     And a characteristic "price" of "<price>"
-    When the "volume" committee is calculated
+    When the "volume" committee reports
     Then the committee should have used quorum "from cost and price"
     And the conclusion of the committee should be "<volume>"
     Examples:
@@ -48,9 +44,8 @@ Feature: Fuel Purchase Committee Calculations
       |  0.0 |   1.0 |    0.0 |
 
   Scenario Outline: Volume comittee from fuel type
-    Given a fuel purchase emitter
-    And a characteristic "fuel_type.name" of "<fuel>"
-    When the "volume" committee is calculated
+    Given a characteristic "fuel_type.name" of "<fuel>"
+    When the "volume" committee reports
     Then the committee should have used quorum "from fuel type"
     And the conclusion of the committee should be "<volume>"
     Examples:
@@ -58,17 +53,14 @@ Feature: Fuel Purchase Committee Calculations
       | Residential Natural Gas |  6221.98 | 
 
   Scenario Outline: Volume comittee from default
-    Given a fuel purchase emitter
-    When the "volume" committee is calculated
-    And the conclusion of the committee should be "<volume>"
+    Given the conclusion of the committee should be "<volume>"
     Examples:
       | volume |
       | 100    |
 
   Scenario Outline: Emission factor committee from fuel type
-    Given a fuel purchase emitter
-    And a characteristic "fuel_type.name" of "<fuel_type>"
-    When the "emission_factor" committee is calculated
+    Given a characteristic "fuel_type.name" of "<fuel_type>"
+    When the "emission_factor" committee reports
     Then the committee should have used quorum "from fuel type"
     And the conclusion of the committee should be "<factor>"
     Examples:
@@ -78,8 +70,8 @@ Feature: Fuel Purchase Committee Calculations
       | Kerosene                    | 2.681  |
       | Conventional Motor Gasoline | 2.358  |
 
+  Background:
+    Given a FuelPurchase
+
   Scenario: Emission factor committee from default
-    Given a fuel purchase emitter
-    When the "emission_factor" committee is calculated
-    Then the committee should have used quorum "default"
-    And the conclusion of the committee should be "1.0"
+    Given the conclusion of the committee should be "1.0"
