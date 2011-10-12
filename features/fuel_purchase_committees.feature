@@ -1,6 +1,9 @@
 Feature: Fuel Purchase Committee Calculations
   The fuel purchase model should generate correct committee calculations
 
+  Background:
+    Given a fuel_purchase
+
   Scenario Outline: State comittee
     Given a characteristic "zip_code.name" of "<zip>"
     When the "state" committee reports
@@ -69,9 +72,6 @@ Feature: Fuel Purchase Committee Calculations
       | Residential Natural Gas     | 1.923  |
       | Kerosene                    | 2.681  |
       | Conventional Motor Gasoline | 2.358  |
-
-  Background:
-    Given a FuelPurchase
 
   Scenario: Emission factor committee from default
     Given the conclusion of the committee should be "1.0"

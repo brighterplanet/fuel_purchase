@@ -1,6 +1,9 @@
 Feature: Fuel Purchase Emissions Calculations
   The fuel purchase model should generate correct emission calculations
 
+  Background:
+    Given a fuel_purchase
+
   Scenario Outline: Standard Calculations for fuel purchase classes from fuel type and cost
     Given it has "fuel_type.name" of "<fuel_type>"
     And it has "cost" of "<cost>"
@@ -12,9 +15,6 @@ Feature: Fuel Purchase Emissions Calculations
       | Residential Natural Gas     | 100.0  |   454.9  |
       | Kerosene                    | 100.0  |   379.8  |
       | Conventional Motor Gasoline | 100.0  |   479.1  |
-
-  Background:
-    Given a FuelPurchase
 
   Scenario: Default fuel purchase emission
     Given it has "emission" of ""
