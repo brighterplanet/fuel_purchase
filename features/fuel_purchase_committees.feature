@@ -56,7 +56,8 @@ Feature: Fuel Purchase Committee Calculations
       | Residential Natural Gas |  6221.98 | 
 
   Scenario Outline: Volume comittee from default
-    Given the conclusion of the committee should be "<volume>"
+    When the "volume" committee reports
+    And the conclusion of the committee should be "<volume>"
     Examples:
       | volume |
       | 100    |
@@ -74,4 +75,6 @@ Feature: Fuel Purchase Committee Calculations
       | Conventional Motor Gasoline | 2.358  |
 
   Scenario: Emission factor committee from default
-    Given the conclusion of the committee should be "1.0"
+    When the "emission_factor" committee reports
+    Then the committee should have used quorum "default"
+    And the conclusion of the committee should be "1.0"
