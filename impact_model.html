@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>impact_model.rb</title>
+  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1667526-20']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <style type="text/css">
+    td.docs h1 {
+      margin-top: 0;
+    }
+    @media print {
+      .code pre {
+        white-space: pre-wrap;
+      }
+      .code {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+      .code .highlight {
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>impact_model.rb</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        <p>Copyright © 2010 Brighter Planet.
+See LICENSE for details.
+Contact Brighter Planet for dual-license arrangements.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="k">module</span> <span class="nn">BrighterPlanet</span>
+  <span class="k">module</span> <span class="nn">FuelPurchase</span>
+    <span class="k">module</span> <span class="nn">ImpactModel</span>
+      <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">included</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+        <span class="n">base</span><span class="o">.</span><span class="n">decide</span> <span class="ss">:impact</span><span class="p">,</span> <span class="ss">:with</span> <span class="o">=&gt;</span> <span class="ss">:characteristics</span> <span class="k">do</span>
+          <span class="n">committee</span> <span class="ss">:carbon</span> <span class="k">do</span>
+            <span class="n">quorum</span> <span class="s1">&#39;from volume and emission factor&#39;</span><span class="p">,</span> <span class="ss">:needs</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:volume</span><span class="p">,</span> <span class="ss">:emission_factor</span><span class="o">]</span> <span class="k">do</span> <span class="o">|</span><span class="n">characteristics</span><span class="o">|</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <p>variable units                variable units          FIXME TODO should we make volumes energy contents to avoid unit mismatches?</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>              <span class="n">characteristics</span><span class="o">[</span><span class="ss">:volume</span><span class="o">]</span> <span class="o">*</span> <span class="n">characteristics</span><span class="o">[</span><span class="ss">:emission_factor</span><span class="o">]</span>
+            <span class="k">end</span>
+            
+            <span class="n">quorum</span> <span class="s1">&#39;default&#39;</span> <span class="k">do</span>
+              <span class="k">raise</span> <span class="s2">&quot;The fuel purchase&#39;s default emission quorum should never be called&quot;</span>
+            <span class="k">end</span>
+          <span class="k">end</span>
+          
+          <span class="n">committee</span> <span class="ss">:emission_factor</span> <span class="k">do</span> <span class="c1"># FIXME TODO add date-based lookup once we have timeseries of emission factors</span>
+            <span class="n">quorum</span> <span class="s1">&#39;from fuel type&#39;</span><span class="p">,</span> <span class="ss">:needs</span> <span class="o">=&gt;</span> <span class="ss">:fuel_type</span> <span class="k">do</span> <span class="o">|</span><span class="n">characteristics</span><span class="o">|</span>
+              <span class="n">characteristics</span><span class="o">[</span><span class="ss">:fuel_type</span><span class="o">].</span><span class="n">emission_factor</span>
+            <span class="k">end</span>
+            
+            <span class="n">quorum</span> <span class="s1">&#39;default&#39;</span> <span class="k">do</span>
+              <span class="no">FuelType</span><span class="o">.</span><span class="n">fallback</span><span class="o">.</span><span class="n">emission_factor</span>
+            <span class="k">end</span>
+          <span class="k">end</span>
+          
+          <span class="n">committee</span> <span class="ss">:volume</span> <span class="k">do</span>
+            <span class="n">quorum</span> <span class="s1">&#39;from cost and price&#39;</span><span class="p">,</span> <span class="ss">:needs</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:cost</span><span class="p">,</span> <span class="ss">:price</span><span class="o">]</span> <span class="k">do</span> <span class="o">|</span><span class="n">characteristics</span><span class="o">|</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-3'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-3">&#182;</a>
+        </div>
+        <p>dollars          dollars / variable unit          FIXME TODO should we make prices $ / kJ to avoid unit mismatches?</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>              <span class="n">characteristics</span><span class="o">[</span><span class="ss">:cost</span><span class="o">]</span> <span class="o">/</span> <span class="n">characteristics</span><span class="o">[</span><span class="ss">:price</span><span class="o">]</span>
+            <span class="k">end</span>
+            
+            <span class="n">quorum</span> <span class="s1">&#39;from fuel type&#39;</span><span class="p">,</span> <span class="ss">:needs</span> <span class="o">=&gt;</span> <span class="ss">:fuel_type</span> <span class="k">do</span> <span class="o">|</span><span class="n">characteristics</span><span class="o">|</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-4'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-4">&#182;</a>
+        </div>
+        <p>variable units</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>              <span class="n">characteristics</span><span class="o">[</span><span class="ss">:fuel_type</span><span class="o">].</span><span class="n">average_purchase_volume</span>
+            <span class="k">end</span>
+            
+            <span class="n">quorum</span> <span class="s1">&#39;default&#39;</span> <span class="k">do</span> <span class="c1"># FIXME TODO get rid of this if we ever make a fallback fuel_type</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-5'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-5">&#182;</a>
+        </div>
+        <p>variable units</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>              <span class="no">FuelType</span><span class="o">.</span><span class="n">fallback</span><span class="o">.</span><span class="n">average_purchase_volume</span>
+            <span class="k">end</span>
+          <span class="k">end</span>
+          
+          <span class="n">committee</span> <span class="ss">:price</span> <span class="k">do</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-6'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-6">&#182;</a>
+        </div>
+        <p>FIXME TODO fill in location- and date-based quorums
+quorum :from_fuel_type_and_state_and_date, :needs => [:fuel_type, :state, :date] do |characteristics, timeframe|
+end</p>
+
+<p>quorum :from_fuel_type_and_petroleum_administration_for_defense_district_and_date, :needs => [:fuel_type, :petroleum_administration_for_defense_district, :date] do |characteristics, timeframe|
+end</p>
+
+<p>quorum :from_fuel_type_and_state, :needs => [:fuel_type, :state] do |characteristics, timeframe|
+end</p>
+
+<p>quorum :from_fuel_type_and_petroleum_administration_for_defense_district, :needs => [:fuel_type, :petroleum_administration_for_defense_district] do |characteristics, timeframe|
+end</p>
+
+<p>quorum :from_fuel_type_and_date, :needs [:fuel_type, :date] do |characteristics, timeframe|
+end</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="n">quorum</span> <span class="s1">&#39;from fuel type&#39;</span><span class="p">,</span> <span class="ss">:needs</span> <span class="o">=&gt;</span> <span class="ss">:fuel_type</span> <span class="k">do</span> <span class="o">|</span><span class="n">characteristics</span><span class="o">|</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-7'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-7">&#182;</a>
+        </div>
+        <p>dollars / variable unit</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>              <span class="n">characteristics</span><span class="o">[</span><span class="ss">:fuel_type</span><span class="o">].</span><span class="n">price</span>
+            <span class="k">end</span>
+          <span class="k">end</span>
+          
+          <span class="n">committee</span> <span class="ss">:petroleum_administration_for_defense_district</span> <span class="k">do</span>
+            <span class="n">quorum</span> <span class="s1">&#39;from state&#39;</span><span class="p">,</span> <span class="ss">:needs</span> <span class="o">=&gt;</span> <span class="ss">:state</span> <span class="k">do</span> <span class="o">|</span><span class="n">characteristics</span><span class="o">|</span>
+              <span class="n">characteristics</span><span class="o">[</span><span class="ss">:state</span><span class="o">].</span><span class="n">petroleum_administration_for_defense_district</span>
+            <span class="k">end</span>
+          <span class="k">end</span>
+          
+          <span class="n">committee</span> <span class="ss">:state</span> <span class="k">do</span>
+            <span class="n">quorum</span> <span class="s1">&#39;from zip code&#39;</span><span class="p">,</span> <span class="ss">:needs</span> <span class="o">=&gt;</span> <span class="ss">:zip_code</span> <span class="k">do</span> <span class="o">|</span><span class="n">characteristics</span><span class="o">|</span>
+              <span class="n">characteristics</span><span class="o">[</span><span class="ss">:zip_code</span><span class="o">].</span><span class="n">state</span>
+            <span class="k">end</span>
+          <span class="k">end</span>
+          </pre></div>
+      </td>
+    </tr>
+    <tr id='section-8'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-8">&#182;</a>
+        </div>
+        <p>FIXME TODO should this be only user-supplied, or should we specify a fallback?
+committee :fuel_type do |characteristics, timeframe|
+  FuelType.fallback.fuel_type
+end</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="k">end</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>
