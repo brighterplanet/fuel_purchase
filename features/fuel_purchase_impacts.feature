@@ -8,7 +8,7 @@ Feature: Fuel Purchase Emissions Calculations
     Given it has "fuel_type.name" of "<fuel_type>"
     And it has "cost" of "<cost>"
     When impacts are calculated
-    Then the amount of "carbon" should be within "0.1" kgs of "<emission>"
+    Then the amount of "carbon" should be within "0.1" of "<emission>"
     Examples:
       | fuel_type                   | cost   | emission |
       | Industrial Coking Coal      | 100.0  |  2089.1  |
@@ -17,6 +17,5 @@ Feature: Fuel Purchase Emissions Calculations
       | Conventional Motor Gasoline | 100.0  |   479.1  |
 
   Scenario: Default fuel purchase emission
-    Given it has "emission" of ""
     When impacts are calculated
-    Then the amount of "carbon" should be within "0.1" kgs of "100"
+    Then the amount of "carbon" should be within "0.1" of "100"
