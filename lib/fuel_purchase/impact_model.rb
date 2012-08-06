@@ -2,6 +2,8 @@
 # See LICENSE for details.
 # Contact Brighter Planet for dual-license arrangements.
 
+require 'earth/fuel/fuel_type'
+
 module BrighterPlanet
   module FuelPurchase
     module ImpactModel
