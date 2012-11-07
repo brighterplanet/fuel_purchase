@@ -27,7 +27,7 @@ Feature: Fuel Purchase Committee Calculations
   Scenario Outline: Price committee from fuel type
     Given a characteristic "fuel_type.name" of "<fuel_type>"
     When the "price" committee reports
-    Then the conclusion of the committee should be "<price>"
+    Then the conclusion of the committee should have "to_f" of "<price>"
     Examples:
       | fuel_type                     | price  |
       | Industrial Coking Coal        | 0.1302 |
